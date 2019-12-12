@@ -18,4 +18,13 @@ The data being used in this tutorial:
 
 [Contains information licensed under the Open Government Licence – Toronto.](https://www.toronto.ca/city-government/data-research-maps/open-data/open-data-licence/)
 
-With that being said, let's dive right in! Say I'm trying to build an app that shows you the location of the closest... bike rack. I can't help but think that we don't have enough bike infrastructure outside of Downtown, but whatever. Let's download the [file](https://ckan0.cf.opendata.inter.prod-toronto.ca/download_resource/c9568d88-dfb0-4422-813a-973a612717b1)
+With that being said, let's dive right in! Say I'm trying to write an article about the condition of TCHC buildings(community housing). Let's download the file from the [webpage](https://open.toronto.ca/dataset/toronto-community-housing-data/).
+
+# Importing the data to GeoServer
+
+Let's start up GeoServer and feed it this data. We'll be using Docker to run GeoServer. Open up the Docker Quickstart Terminal.
+
+1. Run the following commands, the second after the first is complete.
+  ```
+  docker pull kartoza/geoserver
+  ```
