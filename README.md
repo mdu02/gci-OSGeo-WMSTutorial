@@ -44,7 +44,7 @@ For example, for a container with ID c42b939b336b66d21ca9c4775271c64a1ebd3a95784
 
 4. Run these two commands as well. Make sure you're in the directory containing your data folder.
   ```
-  docker cp  housing-data [con_id]:/app
+  docker cp housing-data [con_id]:/app
   docker start -t [con_id]
   ```
 Wait for the server to spin up.
@@ -62,7 +62,7 @@ The URI is an unique identifier, which does not necessarily have to be in the fo
 
 ![](./tutorial-images/new_workspace.png)
 
-8. Click "Stores" on the left bar, then "Add new Store", then "Shapefile". 
+8. Click "Stores" on the left bar, then "Add new Store", then "Shapefile". First, give the store a name
 In the file selector, choose the .SHP file that we moved into the container. It will be under the /app directory. Access the root of the container from the dropdown in the top left.
 
 ![](./tutorial-images/shp_location.png)
@@ -86,17 +86,20 @@ In this section, I will assume you know the basic structure of an [HTML page](ht
 <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/build/ol.js"></script>
 <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/css/ol.css">
 ```
+
 2. Create a div. Give it an id, which we will be targeting with the javascript later.
 Remember to include CSS to size the div, either here or in the head.
 ```html
 <div id="map" style="width: 900px; height: 600px;"></div>
 ```
+
 3. Since we have a simple map, we'll just use inline JavaScript. Put in a script tag. Steps 4-6 will be contained within this script tag.
 ```html
 <script type = "text/javascript">
 ...
 </script>
 ```
+
 4. Create an image layer to serve the community housing locations.
 ``` javascript
 var housing_img = new ol.layer.Image({
@@ -111,6 +114,7 @@ var housing_img = new ol.layer.Image({
 In this layer, note a few things. The image object only requires one parameter, the source. 
 We create the source, which contains our WMS URL, the layer name, and the type of server.
 The WMS URL refers to the workspace name in step 7 of the import step.
+
 5. Create a tile layer, which will serve the underlying map.
 ```javascript
 var os_layer = new ol.layer.Tile({
@@ -122,7 +126,8 @@ var os_layer = new ol.layer.Tile({
 });
 ```
 In this layer, note a few things. Again, the only param is the source. The URL is from OpenStreetMap's tile server. Don't use this in actual app. Read on OSM's usage policy [here](https://operations.osmfoundation.org/policies/tiles/), 
-and remember to attribute the data. OpenLayers happens to include a constant to allow you to attribute OSM 
+and remember to attribute the data. OpenLayers happens to include a constant to allow you to attribute OSM.
+
 6. Create the map.
 ```javascript
 var map = new ol.Map({
@@ -135,9 +140,10 @@ var map = new ol.Map({
 	})
 });
 ```
+
 Note a few things. The Map object is the basic object of the OpenLayers library. It contains a few layers, the ones we just created. It targets 'map', the itemid of our map div.
-It contains a view, which specifies where in the world the map will display. ```[-79.3832, 43.6532]``` is the coordinates of downtown Toronto.
+It contains a view, which specifies where in the world the map will display. ```[-79.3832, 43.6532]``` are the coordinates of downtown Toronto.
 
 # Trying everything out
-At this point, you should be able to open your html file, which can display a map with a layer above, being served through WMS from a groserver.
+At this point, you should be able to open your html file, which can display a map with a layer above, being served through WMS from a groserver. We're done!
 ![](./tutorial-images/final_map.png)
