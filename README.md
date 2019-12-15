@@ -40,7 +40,8 @@ Let's start up GeoServer and feed it this data. We'll be using Docker to run Geo
 ![](./tutorial-images/pull_finished.png)
 
 The terminal will give you a 128-byte container ID. You can use any number of leading digits as [con_id] as long as they are unique with other containers.
-For example, for a container with ID c42b939b336b66d21ca9c4775271c64a1ebd3a95784d005b7e5f46af1d3904ba, replace [con_id] with 'c', 'c4', 'c42', etc. 
+For example, for a container with ID c42b939b336b66d21ca9c4775271c64a1ebd3a95784d005b7e5f46af1d3904ba, replace [con_id] with 'c', 'c4', 'c42', etc.
+
 4. Run these two commands as well. Make sure you're in the directory containing your data folder.
   ```
   docker cp  housing-data [con_id]:/app
@@ -50,22 +51,23 @@ Wait for the server to spin up.
 
 ![](./tutorial-images/spun_up.png)
 
-4. Open up the server's admin console at ```[host_ip]:8080/geoserver```
-5. Login as admin. The credentials are user: ```admin``` and pw: ```geoserver```
+5. Open up the server's admin console at ```[host_ip]:8080/geoserver```
+
+6. Login as admin. The credentials are user: ```admin``` and pw: ```geoserver```
 
 ![](./tutorial-images/login_screen.png)
 
-6. Create a new workspace. The name can be anything you want, but I've made mine my GitHub username. 
+7. Create a new workspace. The name can be anything you want, but I've made mine my GitHub username. 
 The URI is an unique identifier, which does not necessarily have to be in the format of an actual URL.
 
 ![](./tutorial-images/new_workspace.png)
 
-7. Click "Stores" on the left bar, then "Add new Store", then "Shapefile". 
+8. Click "Stores" on the left bar, then "Add new Store", then "Shapefile". 
 In the file selector, choose the .SHP file that we moved into the container. It will be under the /app directory. Access the root of the container from the dropdown in the top left.
 
 ![](./tutorial-images/shp_location.png)
 
-8. Click publish on the next page. Click on 'Compute from Data' and 'Compute from native bounds', then 'Save'. Your data is now ready.
+9. Click publish on the next page. Click on 'Compute from Data' and 'Compute from native bounds', then 'Save'. Your data is now ready.
 
 ![](./tutorial-images/bounding_boxes.png)
 
