@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/css/ol.css">
+	<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/build/ol.js"></script>
+    <title>Toronto Community Housing</title>
+  </head>
+  <body>
+    <div id="map" style="width: 900px; height: 600px;"></div>
+	
+    <script type = "text/javascript">
+		var housing_img = new ol.layer.Image({
+			source: new ol.source.ImageWMS({
+			url: 'http://192.168.99.100:8080/geoserver/mdu02/wms',
+			params: {'LAYERS': 'mdu02:Community%20Housing%20Data',
+					'cql_filter': 'FIELD_12 > 1990' },
+			ratio: 1,
+			serverType: 'geoserver'
+			})
+		});
+		var os_layer = new ol.layer.Tile({
+			source: new ol.source.OSM({
+				url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+				attributions: [ol.source.OSM.ATTRIBUTION],
+				maxZoom: 18
+			})
+		});
+		var map = new ol.Map({
+			layers: [os_layer, housing_img],
+			target: 'map',
+			view: new ol.View({
+				center: ol.proj.fromLonLat([-79.3832, 43.6532]),
+				maxZoom: 18,
+				zoom: 11
+			})
+		});
+	</script>
+  </body>
+</html>

@@ -133,3 +133,79 @@ It contains a view, which specifies where in the world the map will display. ```
 # Trying everything out
 At this point, you should be able to open your html file, which can display a map with a layer above, being served through WMS from a groserver.
 ![](./tutorial-images/final_map.png)
+
+# Extending the project: CQL Filters!
+At this point, you might be trying to play with the data. For example, you might want an element on the page that lets you filter only, say, buildings from after 1990.
+We can do this with CQL filters! Let's start out by looking at the column names. As it turns out, whoever created the .shp file didn't put the proper field names. But at least they left us a table.
+
+field|name
+------|------
+FIELD_1|_id
+FIELD_2|OBJECTID
+FIELD_3|BLD_ID
+FIELD_4|DEV_ID
+FIELD_5|DEV_NAME
+FIELD_6|NGHBRHD_NUM
+FIELD_7|POLICE_DIV
+FIELD_8|PSTL_CODE
+FIELD_9|TTL_RES_UNIT
+FIELD_10|MRKT_UNIT
+FIELD_11|RGI_UNITS
+FIELD_12|YR_BUILT
+FIELD_13|BLD_TYPO
+FIELD_14|SCATTERED
+FIELD_15|BLD_FORM
+FIELD_16|FLR_ABV_GR
+FIELD_17|BLD_DESC
+geometry|geometry
+
+So we can use these fields to filter through CQL.
+
+For those unfamiliar, CQL is a query language which GeoServer supports.
+Therefore, we can change the locations served to us through WMS. We can do with our above code by adding another param to params in our ImageWMS.
+
+If we were to add, say 
+```
+'cql_filter': 'FIELD_12 > 1990'
+```
+we would obtain only the housing built after the 90s. The code is in /webmap-cql/After 1990
+![](./tutorial-images/after_1990.png)
+
+Looks like the city hasn't done much in terms of building community housing in the past 30 years. Draw whatever conclusions you wish.
+
+While we're there, let's have some fun with the filters. As we see above, the CQL filter is simply text. Why don't we make an input box that lets us change the filtered dates?
+
+(As it turns out, the data shows us one particular house built in 1870. I'm not sure if this is a data entry error, but that's not our job as mapmakers).
+
+1. Create a new div in the html that contains two simple input boxes: once for the beginning date and one for the end date.
+```html
+	<div>
+	Start Date
+	<input type = "text" id = "sdate" value = "1870"/>
+	End Date
+	<input type = "text" id = "edate" value = "2019"/>
+	</div>
+```
+which will display two text boxes.
+
+![](./tutorial-images/text_boxes.png)
+
+2. Create a function in the javascript that fetches the current value from the input boxes and changes the cql_filter parameter	
+```javascript
+function update(){
+	sdate = document.getElementById("sdate").value;
+	edate = document.getElementById("edate").value;
+	myfilter = 'FIELD_12 BETWEEN ' + sdate + ' AND ' + edate;
+	housing_img.getSource().updateParams({
+	'cql_filter': myfilter
+	});
+}
+```
+
+3. Go back to the html div and add a button which calls this update.
+```html
+<button onClick="update()">Update</button>
+```
+
+4. Open up the page. By changing the values at the bottom and pressing update, you can make various different queries about Toronto's community housing data. Here's an example!
+![](./tutorial-images/1970_1990.png)
