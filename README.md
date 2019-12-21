@@ -15,7 +15,7 @@ We will be running our geoserver in a container on a Docker container. You can f
 So what type of data are you looking for? Try your city/country's Open Data set. I live in Toronto which
 releases a good amount of geospatial data on their [open data portal](https://open.toronto.ca/).
 
-The data being used in this tutorial [contains information licensed under the Open Government Licence – Toronto.](https://www.toronto.ca/city-government/data-research-maps/open-data/open-data-licence/)
+The data being used in this tutorial [contains information licensed under the Open Government Licence – Toronto](https://www.toronto.ca/city-government/data-research-maps/open-data/open-data-licence/), which gives me permission to publish their data in this repository.
 
 With that being said, let's dive right in! Say I'm trying to write an article about the condition of TCHC buildings (community housing). We'll download the file from their [webpage](https://ckan0.cf.opendata.inter.prod-toronto.ca/download_resource/f1bf1cef-7d09-407c-80c2-bb2a8b75abfa?format=shp&projection=4326).
 
@@ -47,19 +47,19 @@ Wait for the server to spin up.
 
 ![](./tutorial-images/spun_up.png)
 
-4. Open up the server's admin console at ```[host_ip]:8080/geoserver```
-5. Login as admin. The credentials are user: ```admin``` and pw: ```geoserver```
+5. Open up the server's admin console at ```[host_ip]:8080/geoserver```
+6. Login as admin. The credentials are user: ```admin``` and pw: ```geoserver```
 
 ![](./tutorial-images/login_screen.png)
-6. Create a new workspace. The name can be anything you want, but I've made mine my GitHub username. 
+7. Create a new workspace. The name can be anything you want, but I've made mine my GitHub username. 
 The URI is an unique identifier, which does not necessarily have to be in the format of an actual URL.
 
 ![](./tutorial-images/new_workspace.png)
-7. Click "Stores" on the left bar, then "Add new Store", then "Shapefile". 
+8. Click "Stores" on the left bar, then "Add new Store", then "Shapefile". 
 In the file selector, choose the .SHP file that we moved into the container. It will be under the /app directory. Access the root of the container from the dropdown in the top left.
 
 ![](./tutorial-images/shp_location.png)
-8. Click publish on the next page. Click on 'Compute from Data' and 'Compute from native bounds', then 'Save'. Your data is now ready.
+9. Click publish on the next page. Click on 'Compute from Data' and 'Compute from native bounds', then 'Save'. Your data is now ready.
 
 ![](./tutorial-images/bounding_boxes.png)
 
@@ -78,17 +78,20 @@ In this section, I will assume you know the basic structure of an [HTML page](ht
 <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/build/ol.js"></script>
 <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.1.1/css/ol.css">
 ```
-2. Create a <div>. Give it an id, which we will be targeting with the javascript later.
+
+2. Create a div. Give it an id, which we will be targeting with the javascript later.
 Remember to include CSS to size the div, either here or in the head.
 ```html
 <div id="map" style="width: 900px; height: 600px;"></div>
 ```
+
 3. Since we have a simple map, we'll just use inline JavaScript. Put in a script tag. Steps 4-6 will be contained within this script tag.
 ```html
 <script type = "text/javascript">
 ...
 </script>
 ```
+
 4. Create an image layer to serve the community housing locations.
 ``` javascript
 	var housing_img = new ol.layer.Image({
@@ -103,6 +106,7 @@ Remember to include CSS to size the div, either here or in the head.
 In this layer, note a few things. The image object only requires one parameter, the source. 
 We create the source, which contains our WMS URL, the layer name, and the type of server.
 The WMS URL refers to the workspace name in step 7 of the import step.
+
 5. Create a tile layer, which will serve the underlying map.
 ```javascript
 	var os_layer = new ol.layer.Tile({
@@ -115,6 +119,7 @@ The WMS URL refers to the workspace name in step 7 of the import step.
 ```
 In this layer, note a few things. Again, the only param is the source. The URL is from OpenStreetMap's tile server. Don't use this in actual app. Read on OSM's usage policy [here](https://operations.osmfoundation.org/policies/tiles/), 
 and remember to attribute the data. OpenLayers happens to include a constant to allow you to attribute OSM 
+
 6. Create the map.
 ```javascript
 		var map = new ol.Map({
@@ -179,12 +184,12 @@ While we're there, let's have some fun with the filters. As we see above, the CQ
 
 1. Create a new div in the html that contains two simple input boxes: once for the beginning date and one for the end date.
 ```html
-	<div>
-	Start Date
-	<input type = "text" id = "sdate" value = "1870"/>
-	End Date
-	<input type = "text" id = "edate" value = "2019"/>
-	</div>
+<div>
+Start Date
+<input type = "text" id = "sdate" value = "1870"/>
+End Date
+<input type = "text" id = "edate" value = "2019"/>
+</div>
 ```
 which will display two text boxes.
 
