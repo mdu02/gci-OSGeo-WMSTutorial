@@ -131,7 +131,7 @@ Note a few things. The Map object is the basic object of the OpenLayers library.
 It contains a view, which specifies where in the world the map will display. ```[-79.3832, 43.6532]``` is the coordinates of downtown Toronto.
 
 # Trying everything out
-At this point, you should be able to open your html file, which can display a map with a layer above, being served through WMS from a groserver.
+At this point, you should be able to open your html file, which can display a map with a layer above, being served through WMS from a geoserver.
 ![](./tutorial-images/final_map.png)
 
 # Extending the project: CQL Filters!
