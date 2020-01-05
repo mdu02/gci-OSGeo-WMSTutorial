@@ -44,7 +44,7 @@ For example, for a container with ID c42b939b336b66d21ca9c4775271c64a1ebd3a95784
 4. Run these two commands as well. Make sure you're in the directory containing your data folder.
   ```
   docker cp  housing-data [con_id]:/app
-  docker start -t [con_id]
+  docker start [con_id]
   ```
 Wait for the server to spin up.
 
